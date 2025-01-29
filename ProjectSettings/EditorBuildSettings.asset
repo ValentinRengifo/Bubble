@@ -6,8 +6,11 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
-    guid: 99c9720ab356a0642a771bea13969a05
+    path: Assets/Jarod/Scene/MainMenu.unity
+    guid: b9b24e3caf9eb09419a720bbdd798d01
+  - enabled: 1
+    path: Assets/Jarod/Scene/Jarod.unity
+    guid: 4a3b7a30e0e0ce34fa6c9a76a0b7dc5d
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

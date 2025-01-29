@@ -2,11 +2,11 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Rendering;
 
-public class GameManager : MonoBehaviour
+public class GameManagerA: MonoBehaviour
 {
     [SerializeField] TMP_Text countText;
     [SerializeField] TMP_Text incomeText;
-    [SerializeField] StoreUpgrade[] storeUpgrades;
+    [SerializeField] StoreUpgradeA[] storeUpgradesA;
     [SerializeField] int updatesPerSecond = 5;
     
     [HideInInspector] public float count = 0;
@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
 
     void IdleCalculate() {
         float sum = 0;
-        foreach (var storeUpgrade in storeUpgrades) {
+        foreach (var storeUpgrade in storeUpgradesA) {
             sum += storeUpgrade.CalculateIncomePerSecond();
             storeUpgrade.UpdateUI();
         }

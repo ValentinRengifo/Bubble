@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class StoreUpgrade : MonoBehaviour
+public class StoreUpgradeB : MonoBehaviour
 {
     [Header("Components")]
     public TMP_Text priceText;
@@ -12,16 +12,16 @@ public class StoreUpgrade : MonoBehaviour
     [Header("Generator values")]
     public int startPrice = 15;
     public float upgradePriceMultiplier;
-    public float bubblesPerUpgrade = 0.1f;
+    public float pubsPerUpgrade = 0.1f;
 
     [Header("Managers")] 
-    public GameManager gameManager;
+    public GameManagerB gameManagerB;
     
     int level = 0;
 
     public void ClickAction() {
         int price = CalculatePrice();
-        bool purchaseSuccess = gameManager.PurchaseAction(price);
+        bool purchaseSuccess = gameManagerB.PurchaseAction(price);
         if (purchaseSuccess) {
             level++;
             UpdateUI();
@@ -34,8 +34,8 @@ public class StoreUpgrade : MonoBehaviour
     
     public void UpdateUI() {
         priceText.text = CalculatePrice().ToString();
-        incomeInfoText.text = level.ToString() + " x " + bubblesPerUpgrade + "/s";
-        bool canAfford = gameManager.count >= CalculatePrice();
+        incomeInfoText.text = level.ToString() + " x " + pubsPerUpgrade + "/s";
+        bool canAfford = gameManagerB.count >= CalculatePrice();
         button.interactable = canAfford;
     }
 
@@ -44,6 +44,6 @@ public class StoreUpgrade : MonoBehaviour
         return Price;
     }
     public float CalculateIncomePerSecond() {
-        return bubblesPerUpgrade * level;
+        return pubsPerUpgrade * level;
     }
 }

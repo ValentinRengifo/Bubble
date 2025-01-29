@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 400621132129450797}
   m_Layer: 0
   m_Name: poisson
-  m_TagString: Untagged
+  m_TagString: poisson
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -153,3 +153,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 0
   cooldown: 3
+  idlePosition: {fileID: 0}

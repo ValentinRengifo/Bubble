@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 5298420460190547950}
   m_Layer: 0
   m_Name: bulle
-  m_TagString: Untagged
+  m_TagString: bulle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 3826921430478649497}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5, y: -1.36, z: -17.724236}
+  m_LocalPosition: {x: 5, y: -3.33, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -150,3 +150,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulleManager: {fileID: 0}
+  finalPosition: {fileID: 0}

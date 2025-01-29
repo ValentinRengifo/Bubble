@@ -1,71 +1,77 @@
 using System;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace mehdi.scripts
 {
     public class PoissonScript : MonoBehaviour
     {
-        // Start is called once before the first execution of Update after the MonoBehaviour is created
-        [FormerlySerializedAs("_state")] public bool state; // false = en attente    /    true = entrain d'eclater une bulle
-        public float cooldown = 3f;
+        public bool state; // false = idle, true = popping a bubble
+        public float cooldown;
         private float _timer;
-        private bool _poped;
         private GameObject _target;
+        [SerializeField] private Transform idlePosition;
 
-        private void Start()
-        {
-            throw new NotImplementedException();
-        }
-
-        // Update is called once per frame
         private void Update()
         {
-            if (_timer >= cooldown)
+            if (state) // En train d'éclater une bulle
+            {
+                if (_target == null) 
+                {
+                    FindBubble(); // Trouve une autre bulle si l'actuelle disparaît
+                }
+
+                if (_target != null)
+                {
+                    // Déplacement vers la bulle
+                    transform.position = Vector3.MoveTowards(
+                        transform.position, 
+                        _target.transform.position, 
+                        7f * Time.deltaTime
+                    );
+                }
+            }
+            else // Idle state
+            {
+                _timer += Time.deltaTime;
+                if (_timer >= cooldown)
+                {
+                    FindBubble(); // Trouver une bulle et passer à l'état "popping"
+                }
+                else
+                {
+                    Idle();
+                }
+            }
+        }
+
+        private void Idle()
+        {
+            transform.position = Vector3.MoveTowards(
+                transform.position,
+                idlePosition.position,
+                5f * Time.deltaTime
+            );
+        }
+
+        private void FindBubble()
+        {
+            _target = GameObject.FindWithTag("bulle");
+            if (_target != null)
             {
                 state = true;
             }
-            else
-            {
-                _timer += Time.deltaTime;
-            }
-
-            if (state)
-            {
-                Pop();
-                state = false;
-            }
-        }
-
-        // ReSharper disable Unity.PerformanceAnalysis
-        private void Pop()
-        {
-            _target = GameObject.FindWithTag("bulle");
-            do
-            {
-                if (_target == null)
-                {
-                    _target = GameObject.FindWithTag("bulle");
-                }
-                
-                // TODO
-                // aller tout droit sur la bulle
-                // revenir a sa place quand on a eclater une bulle
-                // 
-                // faire en sorte que la fonction ne call que une fois à la fois                 !!!!!!!!!!!!!!!!!!!!!!!
-            } while (_poped!);
-            _poped = false;
-
         }
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.gameObject.CompareTag("bulle"))
+            if (other.gameObject.CompareTag("bulle") && state)
             {
-                if (state)
-                {
-                    _poped = true; 
-                }
+                Destroy(other.gameObject); // Détruit la bulle
+                
+                // Retour en Idle
+                state = false;
+                _timer = 0f;
+                _target = null;
             }
         }
     }

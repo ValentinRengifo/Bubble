@@ -1,65 +1,138 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 
 public class PopupManager : MonoBehaviour
 {
-    public GameObject popupPrefab; // Préfabriqué du popup
-    public Transform popupContainer; // Conteneur pour accumuler les pop-ups
+    public GameObject popupPrefab; // Prefab du pop-up
+    public Transform popupContainer; // Conteneur des pop-ups
+    public Button panelButton; // Bouton global pour fermer toutes les pop-ups
+    public GameManagerB gameManagerB;
 
-    public float spawnInterval = 5f; // Intervalle de départ entre les spawns de pop-ups
-    public float minSpawnInterval = 1f; // Intervalle minimum entre les spawns
-    public float spawnSpeedIncrease = 0.1f; // Vitesse à laquelle l'intervalle diminue
+    public Sprite[] popupImages; // Liste des images à afficher
 
-    private float timer = 0f; // Temps écoulé pour gérer les spawns
+    public float minSpawnTime = 1f;
+    public float maxSpawnTime = 15f;
+    public int maxPopupsAtOnce = 5;
 
-    private void Update()
+    private System.Random random = new System.Random();
+
+    private void Start()
     {
-        // Met à jour le minuteur
-        timer += Time.deltaTime;
-
-        // Si le temps écoulé dépasse l'intervalle, générer un nouveau pop-up
-        if (timer >= spawnInterval)
+        if (panelButton != null)
         {
-            ShowPopup("Ceci est un message par défaut !"); // Affiche un message fixe
-            timer = 0f; // Réinitialiser le minuteur
+            panelButton.gameObject.SetActive(false);
+        }
 
-            // Réduire l'intervalle progressivement pour augmenter la fréquence
-            if (spawnInterval > minSpawnInterval)
+        StartCoroutine(SpawnPopupsRandomly());
+    }
+
+    private IEnumerator SpawnPopupsRandomly()
+    {
+        while (true)
+        {
+            float randomWaitTime = Random.Range(minSpawnTime, maxSpawnTime);
+            int popupsToSpawn = Random.Range(1, maxPopupsAtOnce + 1);
+
+            bool triggerMassPopup = random.Next(0, 100) == 0;
+            if (triggerMassPopup)
             {
-                spawnInterval -= spawnSpeedIncrease;
+                popupsToSpawn = Random.Range(10, 21);
+            }
+
+            yield return new WaitForSeconds(randomWaitTime);
+
+            for (int i = 0; i < popupsToSpawn; i++)
+            {
+                ShowPopup();
+
+                float delay = Random.Range(0.05f, 0.2f);
+                yield return new WaitForSeconds(delay);
             }
         }
     }
 
-    // Méthode pour afficher un pop-up
-    public void ShowPopup(string message)
+    public void ShowPopup()
     {
-        // Créer une nouvelle instance du pop-up
-        GameObject newPopup = Instantiate(popupPrefab, popupContainer);
-        
+        if (popupImages.Length == 0) return;
 
-        // Modifier le texte du pop-up
-        Text popupText = newPopup.GetComponentInChildren<Text>();
-        if (popupText != null)
+        GameObject newPopup = Instantiate(popupPrefab, popupContainer);
+        newPopup.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+        newPopup.transform.localPosition = GetRandomCanvasPosition();
+
+        Image popupImage = newPopup.GetComponentInChildren<Image>();
+        if (popupImage != null)
         {
-            popupText.text = message;
+            popupImage.sprite = popupImages[Random.Range(0, popupImages.Length)];
         }
 
-        // Configurer le bouton "Fermer"
         Button closeButton = newPopup.GetComponentInChildren<Button>();
         if (closeButton != null)
         {
             closeButton.onClick.AddListener(() => ClosePopup(newPopup));
         }
 
-        // Activer le pop-up
         newPopup.SetActive(true);
+        UpdateGlobalCloseState();
     }
 
-    // Méthode pour fermer un pop-up
+    private Vector3 GetRandomCanvasPosition()
+    {
+        RectTransform canvasRect = popupContainer.GetComponent<RectTransform>();
+        RectTransform popupRect = popupPrefab.GetComponent<RectTransform>();
+
+        float canvasWidth = canvasRect.rect.width;
+        float canvasHeight = canvasRect.rect.height;
+        float popupWidth = popupRect.rect.width * popupRect.localScale.x;
+        float popupHeight = popupRect.rect.height * popupRect.localScale.y;
+
+        float minX = -canvasWidth / 2 + popupWidth / 2;
+        float maxX = canvasWidth / 2 - popupWidth / 2;
+        float minY = -canvasHeight / 2 + popupHeight / 2;
+        float maxY = canvasHeight / 2 - popupHeight / 2;
+
+        float randomX = Random.Range(minX, maxX);
+        float randomY = Random.Range(minY, maxY);
+
+        return new Vector3(randomX, randomY, 0);
+    }
+
     public void ClosePopup(GameObject popup)
     {
-        popup.SetActive(false); // Désactiver le pop-up
-        Destroy(popup); // Détruire le GameObject pour libérer de la mémoire
+        Destroy(popup);
+        gameManagerB.PopupClickAction();
+        UpdateGlobalCloseState();
+    }
+
+    public void CloseAllPopups()
+    {
+        int popupCount = popupContainer.childCount;
+        if (popupCount > 0)
+        {
+            foreach (Transform child in popupContainer)
+            {
+                Destroy(child.gameObject);
+            }
+            gameManagerB.PopupClickActionMultiple(popupCount);
+        }
+
+        UpdateGlobalCloseState();
+    }
+
+    private void UpdateGlobalCloseState()
+    {
+        if (panelButton != null)
+        {
+            panelButton.gameObject.SetActive(popupContainer.childCount > 0);
+        }
+    }
+    
+    public void ActivateGlobalClose()
+    {
+        if (panelButton != null)
+        {
+            panelButton.onClick.AddListener(CloseAllPopups);
+            UpdateGlobalCloseState();
+        }
     }
 }

@@ -1,18 +1,18 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 public class GameManagerB : MonoBehaviour
 {
     [SerializeField] TMP_Text countText;
     [SerializeField] TMP_Text incomeText;
-    [SerializeField] StoreUpgradeB[] storeUpgradesB;
+    [SerializeField] StoreUpgradeA[] storeUpgradesA;
     [SerializeField] int updatesPerSecond = 5;
-    
+    [SerializeField] public int clickPower = 1;
+
     [HideInInspector] public float count = 0;
     float nextTimeCheck = 1;
     float lastIncomeValue = 0;
-    
+
     private void Start() {
         UpdateUI();
     }
@@ -26,7 +26,7 @@ public class GameManagerB : MonoBehaviour
 
     void IdleCalculate() {
         float sum = 0;
-        foreach (var storeUpgrade in storeUpgradesB) {
+        foreach (var storeUpgrade in storeUpgradesA) {
             sum += storeUpgrade.CalculateIncomePerSecond();
             storeUpgrade.UpdateUI();
         }
@@ -34,9 +34,14 @@ public class GameManagerB : MonoBehaviour
         count += sum / updatesPerSecond;
         UpdateUI();
     }
+
+    public void ClickAction() {
+        count += clickPower;
+        UpdateUI();
+    }
     
-    void ClickAction() {
-        count++;
+    public void PopupClickAction() {
+        count += clickPower;
         UpdateUI();
     }
 
@@ -48,7 +53,12 @@ public class GameManagerB : MonoBehaviour
         }
         return false;
     }
-
+    
+    public void PopupClickActionMultiple(int popupCount) {
+        count += clickPower * popupCount;
+        UpdateUI();
+    }
+    
     void UpdateUI() {
         countText.text = Mathf.RoundToInt(count).ToString();
         incomeText.text = lastIncomeValue.ToString() + "/s";

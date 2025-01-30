@@ -6,8 +6,9 @@ public class GameManagerA: MonoBehaviour
 {
     [SerializeField] TMP_Text countText;
     [SerializeField] TMP_Text incomeText;
-    [SerializeField] StoreUpgradeA[] storeUpgradesA;
+    [SerializeField] StoreUpgradeB[] storeUpgradesB;
     [SerializeField] int updatesPerSecond = 5;
+    [SerializeField] public int clickPower = 1;
     
     [HideInInspector] public float count = 0;
     float nextTimeCheck = 1;
@@ -26,7 +27,7 @@ public class GameManagerA: MonoBehaviour
 
     void IdleCalculate() {
         float sum = 0;
-        foreach (var storeUpgrade in storeUpgradesA) {
+        foreach (var storeUpgrade in storeUpgradesB) {
             sum += storeUpgrade.CalculateIncomePerSecond();
             storeUpgrade.UpdateUI();
         }
@@ -36,7 +37,7 @@ public class GameManagerA: MonoBehaviour
     }
     
     void ClickAction() {
-        count++;
+        count += clickPower;
         UpdateUI();
     }
 

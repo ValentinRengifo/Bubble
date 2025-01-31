@@ -15,13 +15,13 @@ public class StoreUpgradeB : MonoBehaviour
     public float pubsPerUpgrade = 0.1f;
 
     [Header("Managers")] 
-    public GameManagerA gameManagerA;
+    public GameManagerB gameManagerB;
     
     int level = 0;
 
     public void ClickAction() {
         int price = CalculatePrice();
-        bool purchaseSuccess = gameManagerA.PurchaseAction(price);
+        bool purchaseSuccess = gameManagerB.PurchaseAction(price);
         if (purchaseSuccess) {
             level++;
             UpdateUI();
@@ -35,7 +35,7 @@ public class StoreUpgradeB : MonoBehaviour
     public void UpdateUI() {
         priceText.text = CalculatePrice().ToString();
         incomeInfoText.text = level.ToString() + " x " + pubsPerUpgrade + "/s";
-        bool canAfford = gameManagerA.count >= CalculatePrice();
+        bool canAfford = gameManagerB.count >= CalculatePrice();
         button.interactable = canAfford;
     }
 

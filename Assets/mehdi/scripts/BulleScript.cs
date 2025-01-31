@@ -7,11 +7,17 @@ public class BulleScript : MonoBehaviour
     [SerializeField] public BulleManagerScript bulleManager; 
     public Transform finalPosition;
     private float _timer;
+    public float speed = 5;
+    private float _lifeTime;
+    public int valeur = 1;
+    
         
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        Destroy(gameObject, 3.5f);
+        speed = bulleManager.bullesParSeconde * 2.5f;
+        _lifeTime = 20/speed ;
+        Destroy(gameObject, _lifeTime);
     }
 
     // Update is called once per frame
@@ -20,7 +26,7 @@ public class BulleScript : MonoBehaviour
         transform.position = Vector3.MoveTowards(
             transform.position, 
             finalPosition.position, 
-            5f * Time.deltaTime
+            speed * Time.deltaTime
         );
     }
 
@@ -32,7 +38,7 @@ public class BulleScript : MonoBehaviour
             //if (other.gameObject.GetComponent<PoissonScript>().state)
             //{
             Debug.Log("is poisson");
-            bulleManager.GetComponent<BulleManagerScript>().bulleScore += 1;
+            bulleManager.GetComponent<BulleManagerScript>().bulleScore += valeur;
             Destroy(gameObject);
             //}
         }
@@ -42,7 +48,7 @@ public class BulleScript : MonoBehaviour
     private void OnMouseDown()
     {
         Debug.Log("une bulle à été clické !");
-        bulleManager.GetComponent<BulleManagerScript>().bulleScore += 1;
+        bulleManager.GetComponent<BulleManagerScript>().bulleScore += valeur;
         Destroy(gameObject); // Détruit la bulle quand on clique dessus
     }
 }

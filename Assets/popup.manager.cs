@@ -17,6 +17,10 @@ public class PopupManager : MonoBehaviour
 
     private System.Random random = new System.Random();
 
+    // Ajout du son
+    public AudioSource audioSource; // Référence à l'AudioSource
+    public AudioClip popupSound; // Son joué à l'ouverture du pop-up
+
     private void Start()
     {
         if (panelButton != null)
@@ -70,6 +74,12 @@ public class PopupManager : MonoBehaviour
         if (closeButton != null)
         {
             closeButton.onClick.AddListener(() => ClosePopup(newPopup));
+        }
+
+        // 🔊 Joue le son
+        if (audioSource != null && popupSound != null) 
+        {
+            audioSource.PlayOneShot(popupSound);
         }
 
         newPopup.SetActive(true);

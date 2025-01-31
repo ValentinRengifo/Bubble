@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class StoreUpgradeB : MonoBehaviour
@@ -14,15 +15,20 @@ public class StoreUpgradeB : MonoBehaviour
     public float upgradePriceMultiplier;
     public float pubsPerUpgrade = 0.1f;
 
-    [Header("Managers")] 
-    public GameManagerB gameManagerB;
+    private GameManagerA gameManagerA;
     
     int level = 0;
 
+    
+    private void Awake()
+    {
+        gameManagerA = FindFirstObjectByType<GameManagerA>();
+    }
+    
     public void ClickAction() {
         int price = CalculatePrice();
-        bool purchaseSuccess = gameManagerB.PurchaseAction(price);
-        if (purchaseSuccess) {
+        if (price <= gameManagerA.count) {
+            gameManagerA.PurchaseAction(price);
             level++;
             UpdateUI();
         }
@@ -35,7 +41,7 @@ public class StoreUpgradeB : MonoBehaviour
     public void UpdateUI() {
         priceText.text = CalculatePrice().ToString();
         incomeInfoText.text = level.ToString() + " x " + pubsPerUpgrade + "/s";
-        bool canAfford = gameManagerB.count >= CalculatePrice();
+        bool canAfford = gameManagerA.count >= CalculatePrice();
         button.interactable = canAfford;
     }
 

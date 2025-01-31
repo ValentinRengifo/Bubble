@@ -5,6 +5,8 @@ public class GameManagerB : MonoBehaviour
 {
     [SerializeField] TMP_Text countText;
     [SerializeField] TMP_Text incomeText;
+    
+    
     [SerializeField] StoreUpgradeB[] storeUpgradesB;
     [SerializeField] int updatesPerSecond = 5;
     [SerializeField] public int clickPower = 1;
@@ -26,7 +28,8 @@ public class GameManagerB : MonoBehaviour
 
     void IdleCalculate() {
         float sum = 0;
-        foreach (var storeUpgrade in storeUpgradesB) {
+        foreach (var storeUpgrade in storeUpgradesB) 
+        {
             sum += storeUpgrade.CalculateIncomePerSecond();
             storeUpgrade.UpdateUI();
         }

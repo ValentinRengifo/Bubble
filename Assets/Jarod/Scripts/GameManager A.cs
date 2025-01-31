@@ -6,6 +6,7 @@ public class GameManagerA: MonoBehaviour
 {
     [SerializeField] TMP_Text countText;
     [SerializeField] TMP_Text incomeText;
+    
     [SerializeField] StoreUpgradeA[] storeUpgradesA;
     [SerializeField] int updatesPerSecond = 5;
     [SerializeField] public int clickPower = 1;
@@ -36,7 +37,7 @@ public class GameManagerA: MonoBehaviour
         UpdateUI();
     }
     
-    void ClickAction() {
+    public void ClickAction() {
         count += clickPower;
         UpdateUI();
     }

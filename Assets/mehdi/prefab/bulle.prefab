@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7540210260788562993}
   - component: {fileID: 4092121208208753900}
   - component: {fileID: 1794515080020250012}
-  - component: {fileID: 5298420460190547950}
+  - component: {fileID: 7628229729627417672}
   m_Layer: 0
   m_Name: bulle
   m_TagString: bulle
@@ -137,7 +137,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
---- !u!114 &5298420460190547950
+--- !u!114 &7628229729627417672
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -146,7 +146,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3826921430478649497}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2df83ebec32bc0242b895a76d4b6f38b, type: 3}
+  m_Script: {fileID: 11500000, guid: b4a3897d79b57794ab8a666ad0a71011, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   bulleManager: {fileID: 0}

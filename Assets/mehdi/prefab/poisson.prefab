@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1946268515136015259}
   - component: {fileID: 6226893081883865778}
   - component: {fileID: 4020730288388943060}
-  - component: {fileID: 400621132129450797}
+  - component: {fileID: 9080675350295864023}
   m_Layer: 0
   m_Name: poisson
   m_TagString: poisson
@@ -139,7 +139,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
---- !u!114 &400621132129450797
+--- !u!114 &9080675350295864023
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -148,9 +148,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 4957194091350693675}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e8c875a320fcf2945b0dfbd7c655960e, type: 3}
+  m_Script: {fileID: 11500000, guid: f2f6db3875584fe47874bcf6d9f3c8a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  state: 0
-  cooldown: 3
-  idlePosition: {fileID: 0}

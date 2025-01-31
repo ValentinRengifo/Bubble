@@ -1,11 +1,9 @@
-using System;
 using UnityEngine;
 
-namespace mehdi.scripts
+
+public class PoissonScript : MonoBehaviour
 {
-    public class PoissonScript : MonoBehaviour
-    {
-        public bool state; // false = idle, true = popping a bubble
+    public bool state; // false = idle, true = popping a bubble
         public float cooldown;
         private float _timer;
         private GameObject _target;
@@ -74,5 +72,4 @@ namespace mehdi.scripts
                 _target = null;
             }
         }
-    }
 }

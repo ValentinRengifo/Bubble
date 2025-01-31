@@ -38,4 +38,11 @@ public class BulleScript : MonoBehaviour
         }
         //throw new NotImplementedException();
     }
+    
+    private void OnMouseDown()
+    {
+        Debug.Log("une bulle à été clické !");
+        bulleManager.GetComponent<BulleManagerScript>().bulleScore += 1;
+        Destroy(gameObject); // Détruit la bulle quand on clique dessus
+    }
 }

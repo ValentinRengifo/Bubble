@@ -1,5 +1,4 @@
 using UnityEngine;
-
 public class BulleManagerScript : MonoBehaviour
 {
     public int bulleScore;

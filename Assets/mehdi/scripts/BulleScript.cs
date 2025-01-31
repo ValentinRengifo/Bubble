@@ -10,13 +10,14 @@ public class BulleScript : MonoBehaviour
     public float speed = 5;
     private float _lifeTime;
     public int valeur = 1;
+    public GameManagerA GameManagerA;
     
         
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        speed = bulleManager.bullesParSeconde * 2.5f;
-        _lifeTime = 20/speed ;
+        speed = bulleManager.bullesParSeconde * 2.5f * 5;
+        _lifeTime = 100 /speed ;
         Destroy(gameObject, _lifeTime);
     }
 
@@ -33,13 +34,9 @@ public class BulleScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("detects collision");
         if (other.gameObject.CompareTag("poisson"))
         {
-            //if (other.gameObject.GetComponent<PoissonScript>().state)
-            //{
-            Debug.Log("is poisson");
-            bulleManager.GetComponent<BulleManagerScript>().bulleScore += valeur;
+            GameManagerA.ClickAction();
             Destroy(gameObject);
             //}
         }
@@ -48,8 +45,7 @@ public class BulleScript : MonoBehaviour
     
     private void OnMouseDown()
     {
-        Debug.Log("une bulle à été clické !");
-        bulleManager.GetComponent<BulleManagerScript>().bulleScore += valeur;
+        GameManagerA.ClickAction();
         Destroy(gameObject); // Détruit la bulle quand on clique dessus
     }
 }

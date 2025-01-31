@@ -5,11 +5,12 @@ public class BulleManagerScript : MonoBehaviour
 {
     [Header("Notre \" solde\" de point de bulles")]
     [Min(0)]
-    public int bulleScore;
     
     [Header("Paramètres de Spawn des bulles")]
     public Transform finalPosition;
     public GameObject bubblePrefab;
+    public int bulleValue = 1;
+    public GameManagerA GameManagerA;
     
     [Tooltip("Nombre de bulles générées par seconde. Exemple : 2 -> une bulle toutes les 0.5s, 4 -> une bulle toutes les 0.25s")]
     [Min(0)]
@@ -24,8 +25,8 @@ public class BulleManagerScript : MonoBehaviour
     {
         while (true)
         {
+            bulleValue = GameManagerA.clickPower;
             SpawnBubble();
-            
             // Calcul d'un temps aléatoire autour de la moyenne
             float meanInterval = 1f / bullesParSeconde;
             float randomInterval = Random.Range(meanInterval * 0.75f, meanInterval * 1.25f); // Variation de ±25%
@@ -43,6 +44,8 @@ public class BulleManagerScript : MonoBehaviour
         {
             bubbleScript.bulleManager = this;
             bubbleScript.finalPosition = finalPosition;
+            bubbleScript.valeur = bulleValue;
+            bubbleScript.GameManagerA = GameManagerA;
         }
     }
 }

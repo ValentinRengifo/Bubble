@@ -31,7 +31,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 5, y: -3.33, z: 0}
-  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -136,7 +136,7 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 126
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!114 &8895361305644471639
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -151,5 +151,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulleManager: {fileID: 0}
   finalPosition: {fileID: 0}
-  speed: 5
+  speed: 10
   valeur: 1
+  GameManagerA: {fileID: 0}

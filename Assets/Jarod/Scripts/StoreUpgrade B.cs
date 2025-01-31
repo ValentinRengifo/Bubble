@@ -33,11 +33,10 @@ public class StoreUpgradeB : MonoBehaviour
             UpdateUI();
         }
     }
-    
-    private void Start() {
+    private void OnEnable()
+    {
         UpdateUI();
     }
-    
     public void UpdateUI() {
         priceText.text = CalculatePrice().ToString();
         incomeInfoText.text = level.ToString() + " x " + pubsPerUpgrade + "/s";

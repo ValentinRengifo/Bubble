@@ -29,7 +29,10 @@ public class GameManagerA: MonoBehaviour
         float sum = 0;
         foreach (var storeUpgrade in storeUpgradesB) {
             sum += storeUpgrade.CalculateIncomePerSecond();
-            storeUpgrade.UpdateUI();
+            if (storeUpgrade.isActiveAndEnabled)
+            {
+                storeUpgrade.UpdateUI();
+            }
         }
         lastIncomeValue = sum;
         count += sum / updatesPerSecond;

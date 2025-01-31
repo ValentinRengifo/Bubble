@@ -23,6 +23,7 @@ public class StoreUpgradeA : MonoBehaviour
     private void Awake()
     {
         gameManagerB = FindFirstObjectByType<GameManagerB>();
+        
     }
 
     public void ClickAction() {
@@ -34,10 +35,12 @@ public class StoreUpgradeA : MonoBehaviour
         }
     }
     
-    private void Start() {
+
+    private void OnEnable()
+    {
         UpdateUI();
     }
-    
+
     public void UpdateUI() {
         priceText.text = CalculatePrice().ToString();
         incomeInfoText.text = level.ToString() + " x " + bubblesPerUpgrade + "/s";

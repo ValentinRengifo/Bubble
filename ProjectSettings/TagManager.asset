@@ -6,6 +6,7 @@ TagManager:
   tags:
   - bulle
   - poisson
+  - endZone
   layers:
   - Default
   - TransparentFX

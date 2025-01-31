@@ -12,6 +12,7 @@ public class BulleManagerScript : MonoBehaviour
     public int bulleValue = 1;
     public GameManagerA GameManagerA;
     
+    
     [Tooltip("Nombre de bulles générées par seconde. Exemple : 2 -> une bulle toutes les 0.5s, 4 -> une bulle toutes les 0.25s")]
     [Min(0)]
     public float bullesParSeconde = 4f;
@@ -37,7 +38,7 @@ public class BulleManagerScript : MonoBehaviour
 
     private void SpawnBubble()
     {
-        GameObject newBubble = Instantiate(bubblePrefab, this.transform.position, Quaternion.identity);
+        GameObject newBubble = Instantiate(bubblePrefab, transform.position, Quaternion.identity);
 
         BulleScript bubbleScript = newBubble.GetComponent<BulleScript>();
         if (bubbleScript != null)

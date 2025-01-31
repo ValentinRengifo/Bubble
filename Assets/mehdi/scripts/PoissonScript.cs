@@ -16,7 +16,7 @@ public class PoissonScript : MonoBehaviour
         {
             _collider = GetComponent<Collider>();
         }
-        private void Update()
+        private void FixedUpdate()
         {
             if (state) // En train d'éclater une bulle
             {
@@ -35,7 +35,7 @@ public class PoissonScript : MonoBehaviour
                     transform.position = Vector3.MoveTowards(
                         transform.position, 
                         _target.transform.position, 
-                        speed * 1.5f * Time.deltaTime
+                        speed * 1.5f * Time.fixedDeltaTime
                     );
                 }
             }

@@ -28,6 +28,7 @@ public class BulleScript : MonoBehaviour
             finalPosition.position, 
             speed * Time.deltaTime
         );
+        
     }
 
     private void OnTriggerEnter(Collider other)
